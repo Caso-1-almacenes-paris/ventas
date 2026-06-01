@@ -1,0 +1,44 @@
+server:
+  port: 8083
+
+spring:
+  application:
+    name: ventas
+
+  # ⚠️ BD INDEPENDIENTE: crea una base propia para ventas en Neon (p. ej. "ventasdb")
+  # y reemplaza host/usuario/password. NO compartir base con clientes/productos.
+  datasource:
+    url: ${VENTAS_DB_URL:jdbc:postgresql://ep-mute-band-anlf1eyt-pooler.c-6.us-east-1.aws.neon.tech/ventasdb?sslmode=require}
+    username: ${VENTAS_DB_USER:neondb_owner}
+    password: ${VENTAS_DB_PASS:npg_TrxfdWBpS47F}
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+# URLs de los servicios que consume ventas vía WebClient
+services:
+  clientes:
+    url: ${CLIENTES_URL:http://localhost:8081}
+  productos:
+    url: ${PRODUCTOS_URL:http://localhost:8082}
+
+# Comisión del marketplace (10%)
+ventas:
+  tasa-comision: 0.10
+
+# Registro en Eureka (no evaluado en EP2, util para el API Gateway del equipo)
+eureka:
+  client:
+    service-url:
+      defaultZone: ${EUREKA_URL:http://localhost:8761/eureka/}
+    register-with-eureka: true
+    fetch-registry: true
+  instance:
+    prefer-ip-address: true

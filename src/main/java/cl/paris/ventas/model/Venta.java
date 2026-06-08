@@ -29,7 +29,6 @@ public class Venta {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // ID del cliente que vive en el microservicio "clientes" (UUID)
     @Column(name = "cliente_id", nullable = false)
     private UUID clienteId;
 

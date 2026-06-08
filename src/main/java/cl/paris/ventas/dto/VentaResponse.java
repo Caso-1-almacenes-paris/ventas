@@ -7,10 +7,6 @@ import java.util.UUID;
 
 import cl.paris.ventas.model.EstadoVenta;
 
-/**
- * Respuesta de una venta. Este es el contrato que consumen los microservicios
- * registro, estado, tickets y feedback via WebClient.
- */
 public record VentaResponse(
         Long id,
         UUID clienteId,

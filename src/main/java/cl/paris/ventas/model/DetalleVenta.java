@@ -28,11 +28,9 @@ public class DetalleVenta {
     @JoinColumn(name = "venta_id", nullable = false)
     private Venta venta;
 
-    // ID del producto que vive en el microservicio "productos" (Long)
     @Column(name = "producto_id", nullable = false)
     private Long productoId;
 
-    // ID del proveedor/vendedor del producto (Long)
     @Column(name = "proveedor_id")
     private Long proveedorId;
 

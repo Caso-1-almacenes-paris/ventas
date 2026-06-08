@@ -7,7 +7,6 @@ import cl.paris.ventas.dto.VentaResponse;
 import cl.paris.ventas.model.DetalleVenta;
 import cl.paris.ventas.model.Venta;
 
-/** Convierte entidades a DTOs de respuesta. La entidad nunca se expone directamente. */
 public final class VentaMapper {
 
     private VentaMapper() {

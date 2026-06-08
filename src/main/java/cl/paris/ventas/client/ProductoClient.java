@@ -9,7 +9,6 @@ import cl.paris.ventas.dto.ProductoResponse;
 import cl.paris.ventas.exception.ResourceNotFoundException;
 import reactor.core.publisher.Mono;
 
-/** Consume el microservicio "productos" para traer precio, stock y proveedor. */
 @Component
 public class ProductoClient {
 
@@ -19,7 +18,6 @@ public class ProductoClient {
         this.webClient = webClient;
     }
 
-    /** Trae el producto por id; lanza 404 si no existe. */
     public ProductoResponse obtenerProducto(Long productoId) {
         return webClient.get()
                 .uri("/api/v1/productos/{id}", productoId)

@@ -35,14 +35,12 @@ public class GlobalExceptionHandler {
         return build(status, "Error al comunicarse con un servicio externo: " + ex.getMessage());
     }
 
-    /** No se pudo conectar al servicio externo (caido o inaccesible). */
     @ExceptionHandler(WebClientRequestException.class)
     public ResponseEntity<Map<String, Object>> handleWebClientRequest(WebClientRequestException ex) {
         return build(HttpStatus.BAD_GATEWAY,
                 "Servicio externo no disponible: " + ex.getMessage());
     }
 
-    /** Errores de validacion de los @Valid (campos del request). -> 400 con detalle por campo. */
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Map<String, Object>> handleValidation(MethodArgumentNotValidException ex) {
         Map<String, Object> body = baseBody(HttpStatus.BAD_REQUEST, "Error de validacion");

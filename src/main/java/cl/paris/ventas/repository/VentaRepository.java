@@ -11,6 +11,5 @@ import cl.paris.ventas.model.Venta;
 @Repository
 public interface VentaRepository extends JpaRepository<Venta, Long> {
 
-    // Query method: ventas de un cliente
     List<Venta> findByClienteId(UUID clienteId);
 }

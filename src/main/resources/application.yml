@@ -5,8 +5,6 @@ spring:
   application:
     name: ventas
 
-  # ⚠️ BD INDEPENDIENTE: crea una base propia para ventas en Neon (p. ej. "ventasdb")
-  # y reemplaza host/usuario/password. NO compartir base con clientes/productos.
   datasource:
     url: ${VENTAS_DB_URL:jdbc:postgresql://ep-mute-band-anlf1eyt-pooler.c-6.us-east-1.aws.neon.tech/ventasdb?sslmode=require}
     username: ${VENTAS_DB_USER:neondb_owner}

@@ -10,8 +10,8 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import org.springframework.web.reactive.function.client.WebClientRequestException;
-import org.springframework.web.reactive.function.client.WebClientResponseException;
+import org.springframework.web.client.ResourceAccessException;
+import org.springframework.web.client.RestClientResponseException;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
@@ -27,16 +27,17 @@ public class GlobalExceptionHandler {
     }
 
     /** El servicio externo respondio con un error HTTP (4xx/5xx). */
-    @ExceptionHandler(WebClientResponseException.class)
-    public ResponseEntity<Map<String, Object>> handleWebClientResponse(WebClientResponseException ex) {
+    @ExceptionHandler(RestClientResponseException.class)
+    public ResponseEntity<Map<String, Object>> handleRestClientResponse(RestClientResponseException ex) {
         HttpStatus status = ex.getStatusCode().is4xxClientError()
                 ? HttpStatus.UNPROCESSABLE_ENTITY
                 : HttpStatus.BAD_GATEWAY;
         return build(status, "Error al comunicarse con un servicio externo: " + ex.getMessage());
     }
 
-    @ExceptionHandler(WebClientRequestException.class)
-    public ResponseEntity<Map<String, Object>> handleWebClientRequest(WebClientRequestException ex) {
+    /** El servicio externo no esta disponible (Connection Refused, Timeout, etc.). */
+    @ExceptionHandler(ResourceAccessException.class)
+    public ResponseEntity<Map<String, Object>> handleResourceAccess(ResourceAccessException ex) {
         return build(HttpStatus.BAD_GATEWAY,
                 "Servicio externo no disponible: " + ex.getMessage());
     }

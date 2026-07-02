@@ -32,11 +32,27 @@ ventas:
   tasa-comision: 0.10
 
 # Registro en Eureka (no evaluado en EP2, util para el API Gateway del equipo)
-eureka:
+springdoc:
+  api-docs:
+    enabled: true
+  swagger-ui:
+    enabled: true
+    path: /doc/swagger-ui.html
+  eureka:
   client:
-    service-url:
-      defaultZone: ${EUREKA_URL:http://localhost:8761/eureka/}
     register-with-eureka: true
     fetch-registry: true
+    service-url:
+      defaultZone: https://eureka-server-wp64.onrender.com/eureka/
+
   instance:
-    prefer-ip-address: true
+    prefer-ip-address: false
+    hostname: ${RENDER_EXTERNAL_HOSTNAME:localhost}
+
+    secure-port-enabled: true
+    secure-port: 443
+    non-secure-port-enabled: false
+
+    home-page-url: https://${RENDER_EXTERNAL_HOSTNAME}/
+    status-page-url: https://${RENDER_EXTERNAL_HOSTNAME}/actuator/info
+    health-check-url: https://${RENDER_EXTERNAL_HOSTNAME}/actuator/health
